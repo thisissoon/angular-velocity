@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Results</h1>
+            <p>This is a second view in our angular app. This view displays the results of the search. Click here to return to our <a class="home" href="!">search page</a></p>
+
+            <pre ng-repeat="result in results">{{ $index }}. {{ result.formatted_address }}</pre>
+            <p class="bg-info" ng-if="!(results.length > 0)">No search results</p>
+
+        </div>
+    </div>
+</div>

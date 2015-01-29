@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Search</h1>
+            <p>This is the home page in our angular app. Fill in the form to search locations</p>
+
+            <pre>$scope.location = "{{ location }}"</pre>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" name="form" ng-submit="getLocation(location)" novalidate>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="location" ng-model="location" placeholder="Search location" required>
+                </div>
+                <button id="submit" type="submit" class="btn btn-default" ng-disabled="form.$invalid">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
