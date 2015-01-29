@@ -20,7 +20,7 @@ bower install velocity
   </div>
 
 ```
-The `data-keyframes` attribute takes an array of velocity.js animation keyframes. See [Velocity Docs](http://julian.com/research/velocity/#propertiesMap) for available properties and options.
+The `data-keyframes` attribute takes an array of velocity.js animation keyframes. See the [Velocity Docs](http://julian.com/research/velocity/#propertiesMap) for available properties and options.
 
 
 ## Animation Groups:
@@ -42,15 +42,15 @@ The `data-keyframes` attribute of `sn-velocity-group` takes an object of element
 
 {
   "#elem1": [{
-    'properties': { opacity: 1 },
-    'options': { duration: 1000, loop: true }
+    "properties": { opacity: 1 },
+    "options": { duration: 1000, loop: true }
   }],
   "#elem2": [{
-      'properties': { left: +=100 },
-      'options': { duration: 1000 }
+      "properties": { left: +=100 },
+      "options": { duration: 1000 }
   },{
-      'properties': { opacity: -=100 },
-      'options': { duration: 1000 }
+      "properties": { opacity: -=100 },
+      "options": { duration: 1000 }
   }]
 }
 
