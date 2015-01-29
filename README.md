@@ -1,8 +1,7 @@
 # Angular Velocity 
 
 <!-- [![Build Status](https://travis-ci.org/thisissoon/angular-velocity.svg?branch=master)](https://travis-ci.org/thisissoon/angular-velocity) 
-[![Coverage Status](https://img.shields.io/coveralls/thisissoon/angular-velocity.svg)](https://coveralls.io/r/thisissoon/angular-velocity?branch=master)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/angular-velocity)](https://saucelabs.com/u/angular-velocity) -->
+[![Coverage Status](https://img.shields.io/coveralls/thisissoon/angular-velocity.svg)](https://coveralls.io/r/thisissoon/angular-velocity?branch=master) -->
 
 This project structure is based on the [angular-seed](https://github.com/angular/angular-seed) application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
 
