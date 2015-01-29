@@ -3,6 +3,59 @@
 [![Build Status](https://travis-ci.org/thisissoon/angular-velocity.svg?branch=develop)](https://travis-ci.org/thisissoon/angular-velocity)
 [![Coverage Status](https://coveralls.io/repos/thisissoon/angular-velocity/badge.svg)](https://coveralls.io/r/thisissoon/angular-velocity)
 
+These velocity directives configure velocity.js keyframe animations on an element.
+
+```
+bower install angular-velocity-animate
+bower install velocity
+```
+
+## Basic Usage:
+
+```html
+
+  <!-- add "sn-velocty" directive to the animation target element -->
+  <div sn-velocity data-keyframes="[{'properties': { opacity: 0 }, 'options': { duration: 1000 }},{'properties': { opacity: 1 },'options': { duration: 1000 }}]">
+    ...
+  </div>
+
+```
+The `data-keyframes` attribute takes an array of velocity.js animation keyframes. See [Velocity Docs](http://julian.com/research/velocity/#propertiesMap) for available properties and options.
+
+
+## Animation Groups:
+
+The `sn-velocity-group` directive can be used to animate a number of elements together.
+
+```html
+
+  <!-- wrap the target elements with the "sn-velocty-group" directive -->
+  <sn-velocity-group data-keyframes="animationKeyframes">
+    <div id="#elem1"></div>
+    <div id="#elem2"></div>
+  </sn-velocity-group>
+
+```
+The `data-keyframes` attribute of `sn-velocity-group` takes an object of element identifiers. Each key in the object should hold an array of velocity.js animation keyframes as per the `sn-velocity` directive.
+
+```json
+
+{
+  "#elem1": [{
+    'properties': { opacity: 1 },
+    'options': { duration: 1000, loop: true }
+  }],
+  "#elem2": [{
+      'properties': { left: +=100 },
+      'options': { duration: 1000 }
+  },{
+      'properties': { opacity: -=100 },
+      'options': { duration: 1000 }
+  }]
+}
+
+```
+
 This project structure is based on the [angular-seed](https://github.com/angular/angular-seed) application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
 
 The project is preconfigured to install the Angular framework and a bunch of development and testing tools for instant web development gratification.
