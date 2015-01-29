@@ -42,15 +42,15 @@ The `data-keyframes` attribute of `sn-velocity-group` takes an object of element
 
 {
   "#elem1": [{
-    "properties": { opacity: 1 },
-    "options": { duration: 1000, loop: true }
+    "properties": { "opacity": "1" },
+    "options": { "duration": "1000", "loop": true }
   }],
   "#elem2": [{
-      "properties": { left: +=100 },
-      "options": { duration: 1000 }
+      "properties": { "left": "+=100" },
+      "options": { "duration": "1000" }
   },{
-      "properties": { opacity: -=100 },
-      "options": { duration: 1000 }
+      "properties": { "opacity": "-=100" },
+      "options": { "duration": "1000" }
   }]
 }
 
