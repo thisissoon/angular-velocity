@@ -1,109 +1,83 @@
 "use strict";
 /**
- * @module   sn.example
- * @main     sn.example
- * @author   SOON_
- * @requires ngRoute {@link https://docs.angularjs.org/api/ngRoute}
- */
-angular.module("sn.example", ["ngRoute"]);
-;"use strict";
-/**
- * Configuration for sn.example dependencies are set here.
- * @module sn.example
+ * Angular wrapper for velocityjs animation library
+ * @requires velocityjs {@link https://github.com/julianshapiro/velocity}
+ * @module sn.velocity
  * @author SOON_
  */
-angular.module("sn.example").config([
-    "$routeProvider",
-    "$locationProvider",
-    /**
-     * @constructor
-     * @param {Service} $routeProvider
-     * @param {Service} $locationProvider
-     */
-    function ($routeProvider, $locationProvider) {
-
-        $locationProvider.html5Mode(true).hashPrefix = "!";
-
-        $routeProvider
-            .when("/", {
-                templateUrl: "partials/search.html",
-                controller: "SearchCtrl"
-            })
-            .when("/results", {
-                templateUrl: "partials/results.html",
-                controller: "ResultsCtrl"
-            })
-            .otherwise({
-                redirectTo: "/"
-            });
-
-    }
+angular.module("sn.velocity", [
+    "sn.velocity.snVelocity",
+    "sn.velocity.snVelocityGroup"
 ]);
 ;"use strict";
 /**
- * Controller to perform search in sn.example.
- * @class  SearchCtrl
- * @module sn.example
  * @author SOON_
+ * @module sn.velocity.snVelocityGroup
+ * @class  snVelocityGroup
+ * @example <sn-velocity-group data-keyframes=""></sn-velocity-group>
  */
-angular.module("sn.example").controller("SearchCtrl", [
-    "$scope",
+angular.module("sn.velocity.snVelocityGroup", [
+    "sn.velocity.snVelocity"
+])
+
+.directive("snVelocityGroup",[
+    "$compile",
     "$rootScope",
-    "$http",
-    "$location",
     /**
      * @constructor
-     * @param {Object}  $scope
-     * @param {Service} $rootScope
-     * @param {Service} $http
-     * @param {Service} $location
+     *
+     * @param   {Service} $compile   angular template compiler
+     * @param   {Object}  $rootScope
      */
-    function ($scope, $rootScope, $http, $location) {
+    function($compile, $rootScope) {
+        return {
+            restrict: "E",
+            scope: {
+                "keyframes": "="
+            },
+            link: function($scope, $element){
 
-        /**
-         * Search locations based on val
-         * @method getLocation
-         * @param  {String} val location to query
-         */
-        $scope.getLocation = function getLocation(val){
-            $http.get("http://maps.googleapis.com/maps/api/geocode/json", {
-                params: {
-                    address: val,
-                    sensor: false
-                }
-            }).then(function (response){
-                $rootScope.results = response.data.results;
-                $location.path("/results");
-            });
+                angular.forEach($scope.keyframes, function(keyframes, key){
+                    var animateElement = angular.element($element[0].querySelector(key));
+                    var scope = $rootScope.$new();
+                    scope.keyframes = keyframes;
+
+                    animateElement.attr("sn-velocity", "");
+                    animateElement.attr("data-keyframes", "keyframes");
+
+                    $compile(animateElement)(scope);
+                });
+
+            }
         };
-
     }
-
 ]);
 ;"use strict";
 /**
- * Controller to display results of search in sn.example.
- * @class  ResultsCtrl
- * @module sn.example
+ * Angular wrapper for velocityjs
  * @author SOON_
+ * @module sn.velocity.snVelocity
+ * @class  snVelocity
+ * @example <sn-velocity data-keyframes="[{'properties': { opacity: 0 }, 'options': { duration: 1000 }},{'properties': { opacity: 1 },'options': { duration: 1000 }}]"></sn-velocity>
  */
-angular.module("sn.example").controller("ResultsCtrl", [
-    "$scope",
-    "$rootScope",
+angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
+    "$window",
     /**
      * @constructor
-     * @param {Object}  $scope
-     * @param {Service} $rootScope
      */
-    function ($scope, $rootScope) {
+    function($window) {
+        return {
+            restrict: "A",
+            scope: {
+                "keyframes": "="
+            },
+            link: function($scope, $element){
 
-        /**
-         * The result from the search query
-         * @property results
-         * @type     {Array}
-         */
-        $scope.results = $rootScope.results;
+                angular.forEach($scope.keyframes, function(value){
+                    $window.Velocity($element, value.properties, value.options);
+                });
 
+            }
+        };
     }
-
 ]);
