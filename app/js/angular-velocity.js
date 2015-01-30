@@ -8,4 +8,4 @@
 angular.module("sn.velocity", [
     "sn.velocity.snVelocity",
     "sn.velocity.snVelocityGroup"
-])
+]);

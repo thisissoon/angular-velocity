@@ -38,6 +38,6 @@ angular.module("sn.velocity.snVelocityGroup", [
                 });
 
             }
-        }
+        };
     }
 ]);

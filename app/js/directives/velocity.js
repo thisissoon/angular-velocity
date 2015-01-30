@@ -7,10 +7,11 @@
  * @example <sn-velocity data-keyframes="[{'properties': { opacity: 0 }, 'options': { duration: 1000 }},{'properties': { opacity: 1 },'options': { duration: 1000 }}]"></sn-velocity>
  */
 angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
+    "$window",
     /**
      * @constructor
      */
-    function() {
+    function($window) {
         return {
             restrict: "A",
             scope: {
@@ -19,10 +20,10 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
             link: function($scope, $element){
 
                 angular.forEach($scope.keyframes, function(value){
-                    Velocity($element, value.properties, value.options);
+                    $window.Velocity($element, value.properties, value.options);
                 });
 
             }
-        }
+        };
     }
 ]);
