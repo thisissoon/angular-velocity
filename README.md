@@ -3,6 +3,61 @@
 [![Build Status](https://travis-ci.org/thisissoon/angular-velocity.svg?branch=develop)](https://travis-ci.org/thisissoon/angular-velocity)
 [![Coverage Status](https://coveralls.io/repos/thisissoon/angular-velocity/badge.svg)](https://coveralls.io/r/thisissoon/angular-velocity)
 
+These velocity directives configure velocity.js keyframe animations on an element.
+
+
+## Install
+```
+bower install angular-velocity-animate
+bower install velocity
+```
+
+## Basic Usage
+
+```html
+
+  <!-- add "sn-velocty" directive to the animation target element -->
+  <div sn-velocity data-keyframes="[{'properties': { opacity: 0 }, 'options': { duration: 1000 }},{'properties': { opacity: 1 },'options': { duration: 1000 }}]">
+    ...
+  </div>
+
+```
+The `data-keyframes` attribute takes an array of velocity.js animation keyframes. See the [Velocity Docs](http://julian.com/research/velocity/#propertiesMap) for available properties and options.
+
+
+## Animation Groups
+
+The `sn-velocity-group` directive can be used to animate a number of elements together.
+
+```html
+
+  <!-- wrap the target elements with the "sn-velocty-group" directive -->
+  <sn-velocity-group data-keyframes="animationKeyframes">
+    <div id="#elem1"></div>
+    <div id="#elem2"></div>
+  </sn-velocity-group>
+
+```
+The `data-keyframes` attribute of `sn-velocity-group` takes an object of element identifiers. Each key in the object should hold an array of velocity.js animation keyframes as per the `sn-velocity` directive.
+
+```json
+
+{
+  "#elem1": [{
+    "properties": { "opacity": "1" },
+    "options": { "duration": "1000", "loop": true }
+  }],
+  "#elem2": [{
+      "properties": { "left": "+=100" },
+      "options": { "duration": "1000" }
+  },{
+      "properties": { "opacity": "-=100" },
+      "options": { "duration": "1000" }
+  }]
+}
+
+```
+
 This project structure is based on the [angular-seed](https://github.com/angular/angular-seed) application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
 
 The project is preconfigured to install the Angular framework and a bunch of development and testing tools for instant web development gratification.
@@ -117,34 +172,15 @@ The build files will then be in the `dist/` directory.
 
 app/                    --> all of the files to be used in production
   components/           --> all of our javascript libraries (installed using bower)
-  css/                  --> css files
-    app.css             --> default stylesheet (generated using less)
-  img/                  --> image files
-  less/                 --> less folder
-    default/            --> styling appied to all screen sizes (e.g. fonts, colors etc..)
-      core/             --> core styling applied to all screen sizes 
-      modules/          --> module styling applied to all screen sizes
-    large/              --> styling appied to large screen screen sizes (overrides styling in default folder)
-      core/             --> core styling applied to large screen screen sizes
-      modules/          --> module styling applied to large screen screen sizes 
-    tablet/             --> styling appied to tablet screen sizes (overrides styling in default folder)
-      core/             --> core styling applied to tablet screens 
-      modules/          --> module styling applied to tablet screens
-    mobile/             --> styling appied to mobile screen sizes (overrides styling in default folder)
-      core/             --> core styling applied to mobile screens 
-      modules/          --> module styling applied to mobile screens  
   index.html            --> app layout file (the main html template file of the app)
   js/                   --> javascript files
     {app}/              --> angular module javascript files
       {app}.js          --> angular module initialisation
       config.js         --> angular module config
       controllers/      --> controllers
-        {view}Ctrl.js   
+        {view}Ctrl.js
       directives/       --> directives
-        {module}.js     
-    partials/           --> angular view partials (partial html templates)
-      partial1.html
-      partial2.html
+        {module}.js
 modules/                --> static html files for building and testing styling and mark up
   {module}/
     index.html
