@@ -4,9 +4,8 @@
         "app/components/angular-route/angular-route.js"
     ],
     "application": [
-        "app/js/soon-example/app.js",
-        "app/js/soon-example/config.js",
-        "app/js/soon-example/controllers/SearchCtrl.js",
-        "app/js/soon-example/controllers/ResultsCtrl.js"
+        "app/js/angular-velocity.js",
+        "app/js/directives/velocity-group.js",
+        "app/js/directives/velocity.js"
     ]
 }
