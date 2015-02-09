@@ -1,7 +1,7 @@
 {
   "name": "angular-velocity",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A base template for a typical angularjs application",
   "repository": "https://github.com/thisissoon/angularjs-template",
   "license": "MIT",
