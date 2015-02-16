@@ -1,4 +1,4 @@
-/*! angular-velocity - v0.0.3 - 2015-02-11 */
+/*! angular-velocity - v0.0.4 - 2015-02-16 */
 "use strict";
 /**
  * Angular wrapper for velocityjs animation library
