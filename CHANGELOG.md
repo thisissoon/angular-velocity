@@ -1,3 +1,7 @@
+## Changes in 0.0.4
+
+ * @eopa: update documentation (no PR)
+
 ## Changes in 0.0.3
 
  * @eopa: update build script (no PR)
