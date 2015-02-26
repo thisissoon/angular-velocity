@@ -9,24 +9,32 @@ angular.module("sn.velocity.snVelocityButton", [
     "sn.velocity.snVelocity"
 ])
 
-.directive("snVelocityButton",[
+.directive("snVelocityButton", [
+    "$rootScope",
     "$compile",
     "$window",
     /**
      * @constructor
+     * @param   {Object}  $rootScope angular $rootScope object
      * @param   {Service} $compile   angular template compiler
      * @param   {Service} $window    angular wrapper for window
      */
-    function($compile, $window) {
+    function($rootScope, $compile, $window) {
         return {
             restrict: "EA",
             scope: {
-                "onClickOn": "=?",
-                "onClickOff": "=?",
-                "onMouseEnter": "=?",
-                "onMouseLeave": "=?"
+                "onClickOnKeyframes": "=?onClickOn",
+                "onClickOffKeyframes": "=?onClickOff",
+                "onMouseEnterKeyframes": "=?onMouseEnter",
+                "onMouseLeaveKeyframes": "=?onMouseLeave"
             },
             link: function($scope, $element){
+
+                /**
+                 * Track event listeners
+                 * @property {Object} listenerObj
+                 */
+                var listenerObj = {};
 
                 /**
                  * Number of times animation has run
@@ -60,41 +68,79 @@ angular.module("sn.velocity.snVelocityButton", [
                 };
 
                 /**
-                 * Bind click animation to click event
+                 * On click event check toggle state and run toggle animation
+                 * @method onClick
                  */
-                if ($scope.onClickOn || $scope.onClickOff) {
-                    $element.bind("click", function() {
-
-                        if (!$scope.toggleState) {
-                            $scope.animate($scope.onClickOn);
-                        } else if ($scope.toggleState) {
-                            $scope.animate($scope.onClickOff);
-                        }
-
-                    });
-                }
-
-                /**
-                 * Bind onMouseEnter animation to onMouseEnter event
-                 */
-                if ($scope.onMouseEnter) {
-                    $element.bind("mouseenter", function() {
-                        $scope.animate($scope.onMouseEnter);
-                    });
-                }
-
-                /**
-                 * Bind onMouseLeave animation to onMouseLeave event
-                 */
-                if ($scope.onMouseLeave) {
-                    $element.bind("mouseleave", function() {
+                $scope.onClick = function onClick() {
+                    if ($scope.toggleState) {
+                        // stop current animation
                         angular.forEach($scope.animatedElements, function(animatedElement){
                             $window.Velocity(animatedElement, "stop");
                         });
 
-                        $scope.animate($scope.onMouseLeave);
+                        // run click off animation
+                        $scope.animate($scope.onClickOffKeyframes);
+                    } else {
+                        // run click on animation
+                        $scope.animate($scope.onClickOnKeyframes);
+                    }
+                };
+
+                /**
+                 * On mouseEnter event run animation
+                 * @method onMouseEnter
+                 */
+                $scope.onMouseEnter = function onMouseEnter() {
+                    // run on mouse enter animation
+                    $scope.animate($scope.onMouseEnterKeyframes);
+                };
+
+                /**
+                 * On mouseLeave event run animation
+                 * @method onMouseLeave
+                 */
+                $scope.onMouseLeave = function onMouseLeave() {
+                    // stop current animation
+                    angular.forEach($scope.animatedElements, function(animatedElement){
+                        $window.Velocity(animatedElement, "stop");
                     });
+
+                    // run on mouse leave animation
+                    $scope.animate($scope.onMouseLeaveKeyframes);
+                };
+
+                /**
+                 * Bind click animation to click event if defined
+                 */
+                if ($scope.onClickOnKeyframes || $scope.onClickOffKeyframes) {
+                    listenerObj.click = $element.on("click", $scope.onClick);
                 }
+
+                /**
+                 * Bind onMouseEnter animation to onMouseEnter event if defined
+                 */
+                if ($scope.onMouseEnterKeyframes) {
+                    listenerObj.mouseenter = $element.on("mouseenter", $scope.onMouseEnter);
+                }
+
+                /**
+                 * Bind onMouseLeave animation to onMouseLeave event if defined
+                 */
+                if ($scope.onMouseLeaveKeyframes) {
+                    listenerObj.mouseleave = $element.on("mouseleave", $scope.onMouseLeave);
+                }
+
+                /**
+                 * Clear all listeners during angularjs garbage collection
+                 * @method onDestroy
+                 */
+                $scope.onDestroy = function onDestroy() {
+                    angular.forEach(listenerObj, function (value, key){
+                        listenerObj[key].call(this);
+                    });
+                };
+
+                listenerObj.destroy = $rootScope.$on("$destroy", $scope.onDestroy);
 
             }
         };
