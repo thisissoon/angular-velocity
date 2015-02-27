@@ -22,7 +22,8 @@ angular.module("sn.velocity.snVelocityGroup", [
         return {
             restrict: "E",
             scope: {
-                "keyframes": "="
+                "keyframes": "=",
+                "loop": "="
             },
             link: function($scope, $element){
 
@@ -33,6 +34,11 @@ angular.module("sn.velocity.snVelocityGroup", [
 
                     animateElement.attr("sn-velocity", "");
                     animateElement.attr("data-keyframes", "keyframes");
+
+                    // pass loop option to velocity directive
+                    if ($scope.loop) {
+                        animateElement.attr("data-loop", "true");
+                    }
 
                     $compile(animateElement)(scope);
                 });
