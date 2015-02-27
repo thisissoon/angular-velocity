@@ -58,6 +58,22 @@ The `data-keyframes` attribute of `sn-velocity-group` takes an object of element
 
 ```
 
+## Animated Buttons
+
+The `sn-velocity-button` directive makes it easy to create animations that track button states. Keyframe animations can be set for clickOn, clickOff, 
+mouseEnter and mouseLeave events. When a new event is triggered any previously running animation will stop and the newly triggered animation will run.
+
+```html
+
+  <sn-velocity-button data-on-click-on="animationKeyframes" data-on-click-off="animationKeyframes" data-on-mouse-enter="animationKeyframes" data-on-mouse-leave="animationKeyframes">
+    <div id="#elem1"></div>
+    <div id="#elem2"></div>
+  </sn-velocity-button>
+
+```
+
+---
+
 This project structure is based on the [angular-seed](https://github.com/angular/angular-seed) application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
 
 The project is preconfigured to install the Angular framework and a bunch of development and testing tools for instant web development gratification.

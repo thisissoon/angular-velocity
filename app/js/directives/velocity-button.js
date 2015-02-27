@@ -1,9 +1,10 @@
 "use strict";
 /**
- * @author SOON_
- * @module sn.velocity.snVelocityButton
- * @class  snVelocityButton
- * @example <sn-velocity-button data-on-click-on="burger.in" data-on-click-off="burger.out"></sn-velocity-button>
+ * @author      SOON_
+ * @module      sn.velocity.snVelocityButton
+ * @class       snVelocityButton
+ * @description This directive makes it easy to create animations that track button states. Keyframe animations can be set for clickOn, clickOff, mouseEnter and mouseLeave events.
+ * @example     <sn-velocity-button data-on-click-on="burger.in" data-on-click-off="burger.out"></sn-velocity-button>
  */
 angular.module("sn.velocity.snVelocityButton", [
     "sn.velocity.snVelocity"
