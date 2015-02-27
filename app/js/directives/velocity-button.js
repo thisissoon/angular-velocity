@@ -31,12 +31,6 @@ angular.module("sn.velocity.snVelocityButton", [
             link: function($scope, $element){
 
                 /**
-                 * Track event listeners
-                 * @property {Object} listenerObj
-                 */
-                var listenerObj = {};
-
-                /**
                  * Number of times animation has run
                  * @property {Number} animatedCount
                  */
@@ -128,7 +122,6 @@ angular.module("sn.velocity.snVelocityButton", [
                 $scope.onMouseLeave = function onMouseLeave() {
                     // stop current animation
                     angular.forEach($scope.animatedElements.get, function(animatedElement){
-                        console.log(animatedElement);
                         $window.Velocity(animatedElement, "stop");
                     });
 
@@ -140,21 +133,21 @@ angular.module("sn.velocity.snVelocityButton", [
                  * Bind click animation to click event if defined
                  */
                 if ($scope.onClickOnKeyframes || $scope.onClickOffKeyframes) {
-                    listenerObj.click = $element.on("click", $scope.onClick);
+                    $element.on("click", $scope.onClick);
                 }
 
                 /**
                  * Bind onMouseEnter animation to onMouseEnter event if defined
                  */
                 if ($scope.onMouseEnterKeyframes) {
-                    listenerObj.mouseenter = $element.on("mouseenter", $scope.onMouseEnter);
+                    $element.on("mouseenter", $scope.onMouseEnter);
                 }
 
                 /**
                  * Bind onMouseLeave animation to onMouseLeave event if defined
                  */
                 if ($scope.onMouseLeaveKeyframes) {
-                    listenerObj.mouseleave = $element.on("mouseleave", $scope.onMouseLeave);
+                    $element.on("mouseleave", $scope.onMouseLeave);
                 }
 
                 /**
@@ -162,12 +155,12 @@ angular.module("sn.velocity.snVelocityButton", [
                  * @method onDestroy
                  */
                 $scope.onDestroy = function onDestroy() {
-                    angular.forEach(listenerObj, function (value, key){
-                        listenerObj[key].call(this);
-                    });
+                    $element.off("click");
+                    $element.off("mouseenter");
+                    $element.off("mouseleave");
                 };
 
-                listenerObj.destroy = $rootScope.$on("$destroy", $scope.onDestroy);
+                $rootScope.$on("$destroy", $scope.onDestroy);
 
             }
         };
