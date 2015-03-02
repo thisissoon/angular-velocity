@@ -51,24 +51,23 @@ The `data-keyframes` attribute of `sn-velocity-group` takes an object of element
       "properties": { "left": "+=100" },
       "options": { "duration": "1000" }
   },{
-      "properties": { "opacity": "-=100" },
+      "properties": { "opacity": "0" },
       "options": { "duration": "1000" }
   }]
 }
 
 ```
 
-## Animated Buttons
+## Toggle Animations
 
-The `sn-velocity-button` directive makes it easy to create animations that track button states. Keyframe animations can be set for clickOn, clickOff, 
-mouseEnter and mouseLeave events. When a new event is triggered any previously running animation will stop and the newly triggered animation will run.
+The `sn-velocity-toggle` directive makes it easy to create animations that track states; animations can be set for `active` and `inactive` states. The active animation is triggered by the event set in `data-event-on` and the inactive state triggered by `data-event-off`. The `animationKeyframes` object is the same format as the animation groups directive. 
 
 ```html
 
-  <sn-velocity-button data-on-click-on="animationKeyframes" data-on-click-off="animationKeyframes" data-on-mouse-enter="animationKeyframes" data-on-mouse-leave="animationKeyframes">
+  <sn-velocity-toggle data-event-on="'click'" data-event-off="'click'" data-active="animationKeyframes" data-inactive="animationKeyframes">
     <div id="#elem1"></div>
     <div id="#elem2"></div>
-  </sn-velocity-button>
+  </sn-velocity-toggle>
 
 ```
 
