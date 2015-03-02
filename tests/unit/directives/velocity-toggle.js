@@ -1,6 +1,6 @@
 "use strict";
 
-describe("directive: snVelocityButton", function() {
+describe("directive: snVelocityToggle", function() {
     var clickElement, hoverElement, scope, isolatedScope1, isolatedScope2, _window, spy, spyDestroy, keyframes;
 
     beforeEach(module("sn.velocity"));
@@ -19,14 +19,14 @@ describe("directive: snVelocityButton", function() {
         };
 
         clickElement =
-            "<sn-velocity-button data-on-click-on=\"keyframes.in\" data-on-click-off=\"keyframes.out\">" +
+            "<sn-velocity-toggle data-on-click-on=\"keyframes.in\" data-on-click-off=\"keyframes.out\">" +
                 "<div id=\"elem1\"></div>" +
-            "</sn-velocity-button>";
+            "</sn-velocity-toggle>";
 
         hoverElement =
-            "<sn-velocity-button data-on-mouse-enter=\"keyframes.in\" data-on-mouse-leave=\"keyframes.out\">" +
+            "<sn-velocity-toggle data-on-mouse-enter=\"keyframes.in\" data-on-mouse-leave=\"keyframes.out\">" +
                 "<div id=\"elem1\"></div>" +
-            "</sn-velocity-button>";
+            "</sn-velocity-toggle>";
 
         clickElement = $compile(clickElement)(scope);
         hoverElement = $compile(hoverElement)(scope);
