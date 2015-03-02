@@ -8,5 +8,5 @@
 angular.module("sn.velocity", [
     "sn.velocity.snVelocity",
     "sn.velocity.snVelocityGroup",
-    "sn.velocity.snVelocityButton"
+    "sn.velocity.snVelocityToggle"
 ]);
