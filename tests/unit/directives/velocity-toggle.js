@@ -14,17 +14,17 @@ describe("directive: snVelocityToggle", function() {
         spy = spyOn(_window, "Velocity");
 
         scope.keyframes = {
-            in: {'#elem1': [{ 'properties': { 'opacity': '1' }, 'options': { 'duration': '1000' } }] },
-            out: {'#elem1': [{ 'properties': { 'opacity': '0' }, 'options': { 'duration': '1000' } }] }
+            in: {"#elem1": [{ "properties": { "opacity": "1" }, "options": { "duration": "1000" } }] },
+            out: {"#elem1": [{ "properties": { "opacity": "0" }, "options": { "duration": "1000" } }] }
         };
 
         clickElement =
-            "<sn-velocity-toggle data-on-click-on=\"keyframes.in\" data-on-click-off=\"keyframes.out\">" +
+            "<sn-velocity-toggle data-event-on=\"'click'\" data-event-off=\"'click'\" data-active=\"keyframes.in\" data-inactive=\"keyframes.out\">" +
                 "<div id=\"elem1\"></div>" +
             "</sn-velocity-toggle>";
 
         hoverElement =
-            "<sn-velocity-toggle data-on-mouse-enter=\"keyframes.in\" data-on-mouse-leave=\"keyframes.out\">" +
+            "<sn-velocity-toggle data-event-on=\"'mouseenter'\" data-event-off=\"'mouseleave'\" data-active=\"keyframes.in\" data-inactive=\"keyframes.out\">" +
                 "<div id=\"elem1\"></div>" +
             "</sn-velocity-toggle>";
 
@@ -39,32 +39,40 @@ describe("directive: snVelocityToggle", function() {
     }));
 
     it("should attach directive options to scope", function (){
-        expect(isolatedScope1.onClickOnKeyframes).toEqual(scope.keyframes.in);
-        expect(isolatedScope1.onClickOffKeyframes).toEqual(scope.keyframes.out);
-        expect(isolatedScope2.onMouseEnterKeyframes).toEqual(scope.keyframes.in);
-        expect(isolatedScope2.onMouseLeaveKeyframes).toEqual(scope.keyframes.out);
+        expect(isolatedScope1.eventOn).toEqual("click");
+        expect(isolatedScope1.eventOff).toEqual("click");
+        expect(isolatedScope1.active).toEqual(scope.keyframes.in);
+        expect(isolatedScope1.inactive).toEqual(scope.keyframes.out);
+        expect(isolatedScope2.eventOn).toEqual("mouseenter");
+        expect(isolatedScope2.eventOff).toEqual("mouseleave");
+        expect(isolatedScope2.active).toEqual(scope.keyframes.in);
+        expect(isolatedScope2.inactive).toEqual(scope.keyframes.out);
     });
 
-    it("should call velocity animation onClick", function() {
+    it("should toggle velocity animation onClick", function() {
         clickElement.triggerHandler("click");
-        expect(spy.calls.count()).toBe(1);
+        expect(spy.calls.count()).toBe(2);
         expect(spy).toHaveBeenCalledWith(jasmine.any(Object), { "opacity": "1" }, { "duration": "1000" });
 
+        spy.calls.reset();
+
         clickElement.triggerHandler("click");
-        expect(spy.calls.count()).toBe(3);
-        expect(spy).toHaveBeenCalledWith(jasmine.any(Object), { "opacity": "0" }, { "duration": "1000" });
-    });
-
-    it("should call velocity animation onMouseEnter", function() {
-        hoverElement.triggerHandler("mouseenter");
-        expect(spy.calls.count()).toBe(1);
-        expect(spy).toHaveBeenCalledWith(jasmine.any(Object), { "opacity": "1" }, { "duration": "1000" });
-    });
-
-    it("should call velocity animation onMouseLeave", function() {
-        hoverElement.triggerHandler("mouseleave");
         expect(spy.calls.count()).toBe(2);
         expect(spy).toHaveBeenCalledWith(jasmine.any(Object), { "opacity": "0" }, { "duration": "1000" });
+    });
+
+    it("should call active velocity animation onMouseEnter", function() {
+        hoverElement.triggerHandler("mouseenter");
+        expect(spy.calls.count()).toBe(2);
+        expect(spy).toHaveBeenCalledWith(jasmine.any(Object), { "opacity": "1" }, { "duration": "1000" });
+    });
+
+    it("should call inactive velocity animation onMouseLeave", function() {
+        hoverElement.triggerHandler("mouseleave");
+        expect(spy.calls.count()).toBe(2);
+
+        expect(spy.calls.all()[0].args).toEqual(jasmine.any(Object), "stop");
+        expect(spy.calls.all()[1].args).toEqual(jasmine.any(Object), { "opacity": "0" }, { "duration": "1000" });
     });
 
 });

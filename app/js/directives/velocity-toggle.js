@@ -24,18 +24,18 @@ angular.module("sn.velocity.snVelocityToggle", [
         return {
             restrict: "EA",
             scope: {
-                "onClickOnKeyframes": "=?onClickOn",
-                "onClickOffKeyframes": "=?onClickOff",
-                "onMouseEnterKeyframes": "=?onMouseEnter",
-                "onMouseLeaveKeyframes": "=?onMouseLeave"
+                "eventOn": "=",
+                "eventOff": "=",
+                "active": "=",
+                "inactive": "="
             },
             link: function($scope, $element){
 
                 /**
                  * Number of times animation has run
-                 * @property {Number} animatedCount
+                 * @property {Number} toggleCount
                  */
-                $scope.animatedCount = 0;
+                $scope.toggleCount = 0;
 
                 /**
                  * State of click toggle
@@ -68,7 +68,7 @@ angular.module("sn.velocity.snVelocityToggle", [
                     }
                 };
 
-                $scope.animatedElements.set($scope.onClickOnKeyframes || $scope.onClickOffKeyframes || $scope.onMouseEnterKeyframes || $scope.onMouseLeaveKeyframes);
+                $scope.animatedElements.set($scope.active);
 
                 /**
                  * Run animation on child elements
@@ -83,72 +83,42 @@ angular.module("sn.velocity.snVelocityToggle", [
                         });
                     });
 
-                    $scope.animatedCount = $scope.animatedCount + 1;
-                    $scope.toggleState = !$scope.toggleState;
-
                 };
 
                 /**
-                 * On click event check toggle state and run toggle animation
-                 * @method onClick
+                 * Check toggle state and animate to active/inactive state
+                 * @method toggle
                  */
-                $scope.onClick = function onClick() {
-                    if ($scope.toggleState) {
-                        // stop current animation
-                        angular.forEach($scope.animatedElements.get, function(animatedElement){
-                            $window.Velocity(animatedElement, "stop");
-                        });
-
-                        // run click off animation
-                        $scope.animate($scope.onClickOffKeyframes);
-                    } else {
-                        // run click on animation
-                        $scope.animate($scope.onClickOnKeyframes);
-                    }
-                };
-
-                /**
-                 * On mouseEnter event run animation
-                 * @method onMouseEnter
-                 */
-                $scope.onMouseEnter = function onMouseEnter() {
-                    // run on mouse enter animation
-                    $scope.animate($scope.onMouseEnterKeyframes);
-                };
-
-                /**
-                 * On mouseLeave event run animation
-                 * @method onMouseLeave
-                 */
-                $scope.onMouseLeave = function onMouseLeave() {
+                $scope.toggle = function toggle() {
                     // stop current animation
                     angular.forEach($scope.animatedElements.get, function(animatedElement){
                         $window.Velocity(animatedElement, "stop");
                     });
 
-                    // run on mouse leave animation
-                    $scope.animate($scope.onMouseLeaveKeyframes);
+                    // check current toggle state
+                    if (!$scope.toggleState) {
+
+                        // animate to active state
+                        $scope.animate($scope.active);
+                    } else {
+
+                        // animate to active state
+                        $scope.animate($scope.inactive);
+                    }
+
+                    // update toggle count and state
+                    $scope.toggleCount = $scope.toggleCount + 1;
+                    $scope.toggleState = !$scope.toggleState;
                 };
 
                 /**
-                 * Bind click animation to click event if defined
+                 * Attach toggle handler to events
                  */
-                if ($scope.onClickOnKeyframes || $scope.onClickOffKeyframes) {
-                    $element.on("click", $scope.onClick);
-                }
-
-                /**
-                 * Bind onMouseEnter animation to onMouseEnter event if defined
-                 */
-                if ($scope.onMouseEnterKeyframes) {
-                    $element.on("mouseenter", $scope.onMouseEnter);
-                }
-
-                /**
-                 * Bind onMouseLeave animation to onMouseLeave event if defined
-                 */
-                if ($scope.onMouseLeaveKeyframes) {
-                    $element.on("mouseleave", $scope.onMouseLeave);
+                if ($scope.eventOn === $scope.eventOff) {
+                    $element.on($scope.eventOn, $scope.toggle);
+                } else {
+                    $element.on($scope.eventOn, $scope.toggle);
+                    $element.on($scope.eventOff, $scope.toggle);
                 }
 
                 /**
@@ -156,9 +126,8 @@ angular.module("sn.velocity.snVelocityToggle", [
                  * @method onDestroy
                  */
                 $scope.onDestroy = function onDestroy() {
-                    $element.off("click");
-                    $element.off("mouseenter");
-                    $element.off("mouseleave");
+                    $element.off($scope.eventOn);
+                    $element.off($scope.eventOff);
                 };
 
                 $rootScope.$on("$destroy", $scope.onDestroy);
