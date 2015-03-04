@@ -45,6 +45,10 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
 
                     // start delay - run animation on init or with start delay
                     if ($scope.startDelay) {
+                        if (timer) {
+                            $timeout.cancel(timer);
+                        }
+
                         timer = $timeout($scope.animate, $scope.startDelay);
                     } else {
                         $scope.animate();
@@ -56,7 +60,9 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
                  * @method onDestroy
                  */
                 $scope.onDestroy = function onDestroy() {
-                    timer.cancel();
+                    if (timer) {
+                        $timeout.cancel(timer);
+                    }
                 };
 
                 $scope.$on("$destroy", $scope.onDestroy);
