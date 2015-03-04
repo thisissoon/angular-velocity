@@ -58,18 +58,21 @@ The `data-keyframes` attribute of `sn-velocity-group` takes an object of element
 
 ```
 
-## Toggle Animations
+## Directive: Toggle
 
-The `sn-velocity-toggle` directive makes it easy to create animations that track states; animations can be set for `active` and `inactive` states. The active animation is triggered by the event set in `data-event-on` and the inactive state triggered by `data-event-off`. The `animationKeyframes` object is the same format as the animation groups directive. 
+The `sn-velocity-toggle` directive makes it easy to create animations that track states; animations can be set for `active` and `inactive` states. The active animation is triggered by the event set in `data-event-on` and the inactive state triggered by `data-event-off`. 
 
 ```html
 
-  <sn-velocity-toggle data-event-on="'click'" data-event-off="'click'" data-active="animationKeyframes" data-inactive="animationKeyframes">
-    <div id="#elem1"></div>
-    <div id="#elem2"></div>
+  <sn-velocity-toggle data-event-on="click" data-event-off="click" data-active="animationKeyframesObject" data-inactive="animationKeyframesObject">
+    <!-- elements to animate-->
+    <span id="#elem1"></span>
+    <span id="#elem2"></span>
   </sn-velocity-toggle>
 
 ```
+
+`animationKeyframesObject` should be the same format as `data-keyframes` in the velocityGroup diretcive.
 
 ---
 
