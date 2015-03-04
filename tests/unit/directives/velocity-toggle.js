@@ -19,12 +19,12 @@ describe("directive: snVelocityToggle", function() {
         };
 
         clickElement =
-            "<sn-velocity-toggle data-event-on=\"'click'\" data-event-off=\"'click'\" data-active=\"keyframes.in\" data-inactive=\"keyframes.out\">" +
+            "<sn-velocity-toggle data-event-on=\"click\" data-event-off=\"click\" data-active=\"keyframes.in\" data-inactive=\"keyframes.out\">" +
                 "<div id=\"elem1\"></div>" +
             "</sn-velocity-toggle>";
 
         hoverElement =
-            "<sn-velocity-toggle data-event-on=\"'mouseenter'\" data-event-off=\"'mouseleave'\" data-active=\"keyframes.in\" data-inactive=\"keyframes.out\">" +
+            "<sn-velocity-toggle data-event-on=\"mouseenter\" data-event-off=\"mouseleave\" data-active=\"keyframes.in\" data-inactive=\"keyframes.out\">" +
                 "<div id=\"elem1\"></div>" +
             "</sn-velocity-toggle>";
 

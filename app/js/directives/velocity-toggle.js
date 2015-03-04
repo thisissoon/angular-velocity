@@ -24,8 +24,8 @@ angular.module("sn.velocity.snVelocityToggle", [
         return {
             restrict: "EA",
             scope: {
-                "eventOn": "=",
-                "eventOff": "=",
+                "eventOn": "@",
+                "eventOff": "@",
                 "active": "=",
                 "inactive": "="
             },
