@@ -24,6 +24,14 @@ bower install velocity
 ```
 The `data-keyframes` attribute takes an array of velocity.js animation keyframes. See the [Velocity Docs](http://julian.com/research/velocity/#propertiesMap) for available properties and options.
 
+### Options
+
+#### Loop
+The loop option enables looping over a set of keyframes and is set by the boolean attribute `data-loop`.
+
+```html
+  <div sn-velocity data-loop data-keyframes="[]"></div>
+```
 
 ## Animation Groups
 
