@@ -66,7 +66,7 @@ describe("directive: snVelocityGroup", function() {
 
         it("should pass loop option to velcoity directive", function (){
             var animateElement = angular.element(element).find("div");
-            expect(animateElement.attr("data-loop")).toBeTruthy();
+            expect(animateElement.attr("data-loop")).toBeDefined();
         });
 
     });

@@ -37,7 +37,7 @@ angular.module("sn.velocity.snVelocityGroup", [
 
                     // pass loop option to velocity directive
                     if ($scope.loop) {
-                        animateElement.attr("data-loop", "true");
+                        animateElement.attr("data-loop", "");
                     }
 
                     $compile(animateElement)(scope);

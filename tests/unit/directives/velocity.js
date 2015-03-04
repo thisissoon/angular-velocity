@@ -40,7 +40,7 @@ describe("directive: snVelocity", function() {
             scope = $rootScope.$new();
 
             element =
-                "<div sn-velocity data-loop=\"true\" data-keyframes=\"[{ 'properties': { 'opacity': '1' }, 'options': { 'duration': '1000' } }]\">" +
+                "<div sn-velocity data-loop data-keyframes=\"[{ 'properties': { 'opacity': '1' }, 'options': { 'duration': '1000' } }]\">" +
                     "<div id=\"elem1\"></div>" +
                 "</div>";
 
@@ -49,10 +49,6 @@ describe("directive: snVelocity", function() {
 
             isolatedScope = element.isolateScope();
         }));
-
-        it("should attach directive options to scope", function(){
-            expect(isolatedScope.loop).toBeTruthy();
-        });
 
         it("should add complete function to last keyframe", function(){
             expect(isolatedScope.keyframes[0].options.complete).toEqual(isolatedScope.animate);

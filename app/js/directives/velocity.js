@@ -20,10 +20,9 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
         return {
             restrict: "A",
             scope: {
-                "keyframes": "=",
-                "loop": "=?"
+                "keyframes": "="
             },
-            link: function($scope, $element){
+            link: function($scope, $element, $attrs){
 
                 /**
                  * Run animation
@@ -42,7 +41,7 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
                 $scope.init = function init() {
 
                     // loop - call animation on completion of the last keyframe
-                    if ($scope.loop) {
+                    if ($attrs.hasOwnProperty("loop")) {
                         $scope.keyframes[$scope.keyframes.length - 1].options.complete = $scope.animate;
                     }
 
