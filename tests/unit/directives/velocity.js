@@ -34,6 +34,27 @@ describe("directive: snVelocity", function() {
         expect(spy).toHaveBeenCalledWith(element, { 'opacity': '1' }, { 'duration': '1000' });
     });
 
+    describe("option: startDelay", function(){
+
+        beforeEach(inject(function ($rootScope, $compile, $injector) {
+            scope = $rootScope.$new();
+
+            element =
+                "<div sn-velocity data-start-delay=\"1000\" data-keyframes=\"[{ 'properties': { 'opacity': '1' }, 'options': { 'duration': '1000' } }]\">" +
+                    "<div id=\"elem1\"></div>" +
+                "</div>";
+
+            element = $compile(element)(scope);
+            scope.$digest();
+
+            isolatedScope = element.isolateScope();
+        }));
+
+        it("should attach directive options to scope", function(){
+            expect(isolatedScope.startDelay).toEqual(1000);
+        });
+    });
+
     describe("option: loop", function(){
 
         beforeEach(inject(function ($rootScope, $compile) {

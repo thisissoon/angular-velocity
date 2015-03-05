@@ -25,15 +25,22 @@ angular.module("sn.velocity.snVelocityGroup", [
                 "keyframes": "=",
                 "loop": "="
             },
-            link: function($scope, $element){
+            link: function($scope, $element, $attrs){
 
                 angular.forEach($scope.keyframes, function(keyframes, key){
                     var animateElement = angular.element($element[0].querySelector(key));
                     var scope = $rootScope.$new();
-                    scope.keyframes = keyframes;
+
+                    // pass keyframes directly from keyframes array or from animation object with keyframes key
+                    scope.keyframes = keyframes.keyframes || keyframes;
 
                     animateElement.attr("sn-velocity", "");
                     animateElement.attr("data-keyframes", "keyframes");
+
+                    // pass start delay from animation object to velocity directive
+                    if (keyframes.startDelay) {
+                        animateElement.attr("data-start-delay", keyframes.startDelay);
+                    }
 
                     // pass loop option to velocity directive
                     if ($scope.loop) {

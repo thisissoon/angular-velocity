@@ -1,4 +1,4 @@
-# Angular Velocity 
+# Angular Velocity
 
 [![Build Status](https://travis-ci.org/thisissoon/angular-velocity.svg?branch=develop)](https://travis-ci.org/thisissoon/angular-velocity)
 [![Coverage Status](https://coveralls.io/repos/thisissoon/angular-velocity/badge.svg)](https://coveralls.io/r/thisissoon/angular-velocity)
@@ -31,6 +31,13 @@ The loop option enables looping over a set of keyframes and is set by the boolea
 
 ```html
   <div sn-velocity data-loop data-keyframes="[]"></div>
+```
+
+#### Start Delay
+The start delay option delays the start of the animation by a set number of ms and is set by the attribute `data-start-delay`.
+
+```html
+  <div sn-velocity data-start-delay="1000" data-keyframes="[]"></div>
 ```
 
 ## Animation Groups
@@ -98,7 +105,7 @@ We have two kinds of dependencies in this project: tools and angular framework c
 The following tools require super user privileges so you will need to install them separately like so:
 
 ```
-sudo npm install -g bower 
+sudo npm install -g bower
 sudo npm install -g grunt-cli
 ```
 
@@ -161,11 +168,11 @@ To watch all files run:
 grunt serverall
 ```
 
-To run tests or compile less to css when the relevent files are updated. 
+To run tests or compile less to css when the relevent files are updated.
 
 ### Running the build script
 
-To create a build to deploy for a production environment simply run: 
+To create a build to deploy for a production environment simply run:
 
 ```
 grunt build
@@ -194,7 +201,7 @@ modules/                --> static html files for building and testing styling a
     index.html
 tests/                  --> test config and source files
   e2e/                  --> end-to-end specs
-    specs/              
+    specs/
       scenarios.js
     protractor.conf.js  --> config file for running e2e tests with Protractor
   unit/                 --> unit level specs/tests
@@ -260,7 +267,7 @@ grunt e2e
 ```
 
 Behind the scenes this will also run `webdriver-manager update && webdriver-manager start`. This will download and install the latest version of the stand-alone WebDriver tool and start the Selenium web server. This script will execute the end-to-end tests against the application being hosted on the
-development server. 
+development server.
 
 
 ## Contact

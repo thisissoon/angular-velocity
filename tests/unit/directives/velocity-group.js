@@ -43,6 +43,29 @@ describe("directive: snVelocityGroup", function() {
         expect(animateElement.attr("data-keyframes")).toEqual("keyframes");
     });
 
+    describe("option: startDelay", function(){
+        beforeEach(inject(function ($rootScope, $compile, $injector) {
+            scope = $rootScope.$new();
+
+            element =
+                "<sn-velocity-group data-keyframes=\"{ '#elem1': { 'keyframes': [{ 'properties': { 'opacity': '1' }, 'options': { 'duration': '1000' } }], 'startDelay': '200' } }\">" +
+                    "<div id=\"elem1\"></div>" +
+                "</sn-velocity-group>";
+
+            element = $compile(element)(scope);
+            scope.$digest();
+
+            isolatedScope = element.isolateScope();
+
+        }));
+
+        it("should pass startDelay option from animation object to velocity directives", function (){
+            var animateElement = angular.element(element).find("div");
+            expect(animateElement.attr("data-start-delay")).toEqual("200");
+        });
+
+    });
+
     describe("option: loop", function(){
 
         beforeEach(inject(function ($rootScope, $compile, $injector) {
