@@ -8,6 +8,7 @@
  *      <sn-velocity
  *          data-keyframes="[{'properties': { opacity: 0 }, 'options': { duration: 1000 }},{'properties': { opacity: 1 },'options': { duration: 1000 }}]"
  *          data-start-delay="1000"
+ *          data-loop
  *      ></sn-velocity>
  */
 angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
@@ -23,7 +24,7 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
                 "keyframes": "=",
                 "startDelay": "=?"
             },
-            link: function($scope, $element){
+            link: function($scope, $element, $attrs){
 
                 var timer;
 
@@ -42,6 +43,11 @@ angular.module("sn.velocity.snVelocity", []).directive("snVelocity",[
                  * @method init
                  */
                 $scope.init = function init() {
+
+                    // loop - call animation on completion of the last keyframe
+                    if ($attrs.hasOwnProperty("loop")) {
+                        $scope.keyframes[$scope.keyframes.length - 1].options.complete = $scope.animate;
+                    }
 
                     // start delay - run animation on init or with start delay
                     if ($scope.startDelay) {
