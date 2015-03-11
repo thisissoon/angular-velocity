@@ -6,6 +6,7 @@
     "application": [
         "app/js/angular-velocity.js",
         "app/js/directives/velocity-group.js",
-        "app/js/directives/velocity.js"
+        "app/js/directives/velocity.js",
+        "app/js/directives/velocity-toggle.js"
     ]
 }
