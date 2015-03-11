@@ -1,7 +1,7 @@
 {
   "name": "angular-velocity",
   "description": "Angular Velocity",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "homepage": "https://github.com/thisissoon/angular-velocity",
   "license": "MIT",
   "main": "dist/angular-velocity.js",
